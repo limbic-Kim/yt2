@@ -4,7 +4,7 @@ import os, re
 
 
 def download_video(url, output_dir, audio_only=False,
-                   bypass_postprocessors=True # False면 webm -> mp4 로 변환. (오래걸림)
+                   bypass_postprocessors=True
                   ):
     try:
         output_directory = output_dir
