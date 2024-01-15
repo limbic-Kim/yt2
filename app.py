@@ -1,6 +1,6 @@
 import argparse
 import yt_dlp
-import os
+import os, re
 
 
 def download_video(url, output_dir, audio_only=False,
