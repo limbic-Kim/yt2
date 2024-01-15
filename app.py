@@ -50,13 +50,22 @@ def parse_arguments():
     return parser.parse_args()
 
 
+def refine_url(url):
+    pattern = r"https://(?:www\.youtube\.com/watch\?v=|youtu\.be/)([a-zA-Z0-9_-]+)"
+    video_id = 'hV5n74eMDoY'
+
+    match = re.search(pattern, url)
+    if match:
+        video_id = match.group(1)
+
+    return f'https://www.youtube.com/watch?v={video_id}'
+
+
 def main():
     args = parse_arguments()
-    # input_links를 쉼표로 구분하여 리스트로 변환합니다.
     input_links = args.input_links.split(',')
-    # 리스트의 각 링크에 대해 download_video 함수를 호출합니다.
     for link in input_links:
-        download_video(link, args.output_dir, audio_only=(args.mode == 'audio_only'))
+        download_video(refine_url(link), args.output_dir, audio_only=(args.mode == 'audio_only'))
 
 
 if __name__ == '__main__':
