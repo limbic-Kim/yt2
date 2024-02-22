@@ -44,7 +44,7 @@ def download_video(url, output_dir, audio_only=False,
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Youtube Download CLI')
-    parser.add_argument('--mode', choices=['audio_only', 'audio_and_video'], required=True, help='Mode of operation: audio_only or audio_and_video')
+    parser.add_argument('--mode', choices=['audio_only', 'audio_and_video', 'none'], required=True, help='Mode of operation: audio_only or audio_and_video')
     parser.add_argument('--output_dir', type=str, required=True, help='Path to output directory')
     parser.add_argument('--input_links', type=str, required=True, help='Comma-separated list of youtube links')
     return parser.parse_args()
@@ -63,9 +63,10 @@ def refine_url(url):
 
 def main():
     args = parse_arguments()
-    input_links = args.input_links.split(',')
-    for link in input_links:
-        download_video(refine_url(link), args.output_dir, audio_only=(args.mode == 'audio_only'))
+    if args.mode != 'none':
+        input_links = args.input_links.split(',')
+        for link in input_links:
+            download_video(refine_url(link), args.output_dir, audio_only=(args.mode == 'audio_only'))
 
 
 if __name__ == '__main__':
